@@ -1,0 +1,21 @@
+= New Project Documentation
+:Author:    You
+:Email:     <your.name@gmail.com>
+:toc2:
+:toclevels: 1
+:doctype: book
+:backend: html5
+:theme: flask
+:icons: font
+:imagesdir: docs/images
+:data-uri:
+:copycss:
+:source-highlighter: pygments
+
+== Introduction
+
+Welcome to your new project. Writing documents using AsciiDoc is easy!
+
+NOTE: You should check out the http://asciidoctor.org/docs/asciidoc-writers-guide/[AsciiDoc Writers Guide]
+
+include::examples/00index.adoc[]

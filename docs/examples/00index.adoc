@@ -1,0 +1,9 @@
+== Examples
+
+You can do things like embed source code!
+
+[source,ruby]
+----
+require 'asciidoctor'
+
+puts Asciidoctor.render_file('sample.adoc', :header_footer => true)
