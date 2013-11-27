@@ -10,7 +10,7 @@
 #
 # You can add other targets here as you wish, such as "check-python-virtualenv" to ensure the
 # python virtualenv is configured and up to date.
-default: check-paas-skeleton-env docs check-python-virtualenv
+default: check-paas-skeleton-env docs check-python-virtualenv collectstatic
 
 # Clean target. Add additional things to clean to this list.
 clean: clean-python-virtualenv clean-build
@@ -26,4 +26,13 @@ include ${PROJECT_HOME_DIR}/.paas-skeleton/asciidoc/makefile.inc
 # include ${PROJECT_HOME_DIR}/.paas-skeleton/python/virtualenv-makefile.inc
 
 include ${PROJECT_HOME_DIR}/.paas-skeleton/python/virtualenv-makefile.inc
+
+.PHONY: collectstatic
+collectstatic:
+	mkdir -p ${PROJECT_HOME_DIR}/build/static
+	cd ${PROJECT_HOME_DIR}/build/static && django-admin.py collectstatic --clear --noinput
+
+.PHONY: syncdb
+syncdb:
+	django-admin.py syncdb --migrate
 

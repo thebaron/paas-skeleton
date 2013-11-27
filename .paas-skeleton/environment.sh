@@ -10,9 +10,9 @@
 #
 
 # bail out if we don't know our home directory
-if [[ "x${PROJECT_HOME_DIR}x" == "xx" ]]; then 
+if [[ "x${PROJECT_HOME_DIR}x" == "xx" ]]; then
     echo "PROJECT_HOME_DIR is not set, exiting"
-    exit(1)
+    exit 1
 fi
 
 # bring in per-project configurations

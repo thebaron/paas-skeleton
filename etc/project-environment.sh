@@ -7,7 +7,7 @@
 source ${PROJECT_HOME_DIR}/.paas-skeleton/python/virtualenv.sh
 
 # change this to match your project
-PROJECT_NAME=my-paas-project
+PROJECT_NAME=skeleton
 
 if [[ "${OPENSHIFT_POSTGRESQL_DB_URL}xx" != "xx" ]]; then
     export DATABASE_URL=$OPENSHIFT_POSTGRESQL_DB_URL/$PGDATABASE

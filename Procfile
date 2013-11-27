@@ -11,3 +11,5 @@
 # 
 # Example django application using gunicorn:
 #    web: django-admin.py run_gunicorn --config etc/gunicorn.py
+
+example: django-admin.py run_gunicorn  --config skeleton/gunicorn.py
