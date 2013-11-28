@@ -19,7 +19,7 @@ touch-requirements:
 .PHONY: force-update-virtualenv
 force-update-virtualenv: touch-requirements $(VIRTUAL_ENV)/lib/python2.7/site-packages
 
-$(VIRTUAL_ENV)/lib/python2.7/site-packages: $(VIRTUAL_ENV) $(PROJECT_HOME_DIR)/.paas-skeleton/python/virtualenv-makefile.inc $(PROJECT_HOME_DIR)/requirements.txt
+$(VIRTUAL_ENV)/lib/python2.7/site-packages: $(PROJECT_HOME_DIR)/.paas-skeleton/python/virtualenv-makefile.inc $(PROJECT_HOME_DIR)/requirements.txt
 	if [ ! -f $(PYTHON_BIN) ]; then python2.7 $(PROJECT_HOME_DIR)/.paas-skeleton/python/virtualenv.py $(VE_FLAGS) $(VIRTUAL_ENV); fi
 	$(VIRTUAL_ENV)/bin/easy_install readline
 	$(VIRTUAL_ENV)/bin/pip install $(PIP_FLAGS) -r requirements.txt
