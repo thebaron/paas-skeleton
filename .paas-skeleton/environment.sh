@@ -12,7 +12,7 @@
 # bail out if we don't know our home directory
 if [[ "x${PROJECT_HOME_DIR}x" == "xx" ]]; then 
     echo "PROJECT_HOME_DIR is not set, exiting"
-    exit(1)
+    exit 1
 fi
 
 # figure out a good location for our working environment
