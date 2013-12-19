@@ -34,6 +34,12 @@ if [ ! -d ${PAAS_SKELETON_WORK_DIR} ]; then
     mkdir -p ${PAAS_SKELETON_WORK_DIR}
 fi
 
+# Set the Postgres LD_LIBRARY_PATH if it isn't already set
+PG_LD_PATH=$(LD_LIBRARY_PATH="" scl enable postgresql92 "printenv LD_LIBRARY_PATH")
+if [[ "xx${LD_LIBRARY_PATH/$PG_LD_PATH//}" == "xx${LD_LIBRARY_PATH}" ]]; then
+     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PG_LD_PATH; 
+fi
+
 # bring in local configurations from environment.d/*.sh
 if [ -d "${PROJECT_HOME_DIR}/etc/environment.d/" ]; then
     for i in ${PROJECT_HOME_DIR}/etc/environment.d/*.sh; do
