@@ -2,14 +2,15 @@
 # TODO: make this complain if VIRTUAL_ENV isn't set
 PYTHON_BIN := $(VIRTUAL_ENV)/bin/python
 #VE_FLAGS := --extra-search-dir $(PWD)/lib/buildout-cache/dist --never-download --use-distribute var/ve; fi
-VE_FLAGS := --use-distribute --system-site-packages
-PIP_FLAGS := --use-mirrors --download-cache $(VIRTUAL_ENV)/../download-cache
+VE_FLAGS := --use-distribute 
+PIP_FLAGS := --use-mirrors --quiet
 
 .PHONY: check-python-virtualenv
 check-python-virtualenv: $(PYTHON_BIN)
 
 $(PROJECT_HOME_DIR)/requirements.txt:
 	echo "honcho" >> $@
+	echo "supervisor" >> $@
 
 .PHONY: touch-requirements
 touch-requirements:
@@ -26,15 +27,21 @@ $(VIRTUAL_ENV)/lib/python2.7/site-packages: $(PROJECT_HOME_DIR)/.paas-skeleton/p
 	touch $(VIRTUAL_ENV)/.ve_complete
 	$(VIRTUAL_ENV)/bin/easy_install readline
 	touch $(VIRTUAL_ENV)/.ve_complete
-	if [[ "xx" != 'x$(PIP_EXTRAS)x' ]]; then for extra in $(PIP_EXTRAS); do $(VIRTUAL_ENV)/bin/pip install $(PIP_FLAGS) $$extra; touch $(VIRTUAL_ENV)/.ve_complete; done; fi
-	if ! $(VIRTUAL_ENV)/bin/pip install $(PIP_FLAGS) -r requirements.txt; then touch $(VIRTUAL_ENV)/.ve_complete; fi
+	if [ "xx" != 'x$(PIP_EXTRAS)x' ]; then for extra in $(PIP_EXTRAS); do \
+	$(VIRTUAL_ENV)/bin/pip install $(PIP_FLAGS) $$extra; \
+	echo "Installing $extra"; \
+	touch $(VIRTUAL_ENV)/.ve_complete; \
+	done; fi
+	if ! $(VIRTUAL_ENV)/bin/pip install $(PIP_FLAGS) -r requirements.txt; then \
+	touch $(VIRTUAL_ENV)/.ve_complete; \
+	fi
 	touch $(VIRTUAL_ENV)/lib/python2.7/site-packages
 
 $(VIRTUAL_ENV)/bin/activate: $(VIRTUAL_ENV)/lib/python2.7/site-packages
 
 .PHONY: clean-python-virtualenv
 clean-python-virtualenv:
-	if [[ "x$(VIRTUAL_ENV)x" != "xx" ]]; then rm -rf $(VIRTUAL_ENV); fi
+	if [ "x$(VIRTUAL_ENV)x" != "xx" ]; then rm -rf $(VIRTUAL_ENV); fi
 
 
 $(PYTHON_BIN): $(VIRTUAL_ENV)/lib/python2.7/site-packages
