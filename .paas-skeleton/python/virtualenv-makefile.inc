@@ -1,8 +1,8 @@
 # .paas-skeleton/python/virtualenv-makefile.inc
 # TODO: make this complain if VIRTUAL_ENV isn't set
-PYTHON_BIN := $(VIRTUAL_ENV)/bin/python
+PYTHON_BIN := ${VIRTUAL_ENV}/bin/python
 #VE_FLAGS := --extra-search-dir $(PWD)/lib/buildout-cache/dist --never-download --use-distribute var/ve; fi
-VE_FLAGS := --use-distribute 
+VE_FLAGS := --use-distribute --no-site-packages --extra-search-dir=${PROJECT_HOME_DIR}/.paas-skeleton/python/virtualenv_support
 PIP_FLAGS := --use-mirrors --quiet
 
 .PHONY: check-python-virtualenv
@@ -14,10 +14,10 @@ $(PROJECT_HOME_DIR)/requirements.txt:
 
 .PHONY: touch-requirements
 touch-requirements:
-	touch $(PROJECT_HOME_DIR)/requirements.txt
+	touch ${PROJECT_HOME_DIR}/requirements.txt
 
 .PHONY: force-update-virtualenv
-force-update-virtualenv: touch-requirements $(VIRTUAL_ENV)/lib/python2.7/site-packages
+force-update-virtualenv: touch-requirements ${VIRTUAL_ENV}/lib/python2.7/site-packages
 
 $(VIRTUAL_ENV)/.ve_complete: $(VIRTUAL_ENV)
 	touch $(VIRTUAL_ENV)/.ve_complete
@@ -37,11 +37,10 @@ $(VIRTUAL_ENV)/lib/python2.7/site-packages: $(PROJECT_HOME_DIR)/.paas-skeleton/p
 	fi
 	touch $(VIRTUAL_ENV)/lib/python2.7/site-packages
 
-$(VIRTUAL_ENV)/bin/activate: $(VIRTUAL_ENV)/lib/python2.7/site-packages
+${VIRTUAL_ENV}/bin/activate: ${VIRTUAL_ENV}/lib/python2.7/site-packages
 
 .PHONY: clean-python-virtualenv
 clean-python-virtualenv:
 	if [ "x$(VIRTUAL_ENV)x" != "xx" ]; then rm -rf $(VIRTUAL_ENV); fi
 
-
-$(PYTHON_BIN): $(VIRTUAL_ENV)/lib/python2.7/site-packages
+$(PYTHON_BIN): ${VIRTUAL_ENV}/lib/python2.7/site-packages

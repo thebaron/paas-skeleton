@@ -10,7 +10,7 @@
 #
 
 # bail out if we don't know our home directory
-if [[ "x${PROJECT_HOME_DIR}x" == "xx" ]]; then 
+if [[ "x${PROJECT_HOME_DIR}x" == "xx" ]]; then
     echo "PROJECT_HOME_DIR is not set, exiting"
     exit 1
 fi
@@ -54,4 +54,3 @@ fi
 if [ -f "${PROJECT_HOME_DIR}/etc/project-environment.sh" ]; then
     source ${PROJECT_HOME_DIR}/etc/project-environment.sh
 fi
-
